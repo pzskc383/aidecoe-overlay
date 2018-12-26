@@ -37,10 +37,10 @@ RDEPEND="${CDEPEND}
 	gnome-base/librsvg[tools]
 	gnome-extra/zenity
 	media-gfx/imagemagick
-	sys-apps/qubes-vm-qrexec
+	qubes-vm/qubes-vm-qrexec
 	sys-auth/polkit
-	sys-libs/qubes-db-vm[python,${PYTHON_USEDEP}]
-	sys-libs/qubes-libvchan-xen
+	qubes-vm/qubes-db-vm[python,${PYTHON_USEDEP}]
+	qubes-vm/qubes-libvchan-xen
 	x11-misc/xdg-utils
 	x11-terms/xterm"
 

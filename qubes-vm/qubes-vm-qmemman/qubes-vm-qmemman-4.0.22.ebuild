@@ -19,7 +19,7 @@ IUSE=""
 
 S="${WORKDIR}/${MY_P}/qmemman"
 
-CDEPEND="sys-libs/qubes-libvchan-xen"
+CDEPEND="qubes-vm/qubes-libvchan-xen"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"
 RDEPEND="${CDEPEND}"

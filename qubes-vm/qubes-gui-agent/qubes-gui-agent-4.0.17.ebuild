@@ -23,8 +23,8 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 S="${WORKDIR}/${MY_P}/gui-agent"
 
 CDEPEND="gnome-extra/zenity
-	sys-libs/qubes-db-vm
-	sys-libs/qubes-libvchan-xen
+	qubes-vm/qubes-db-vm
+	qubes-vm/qubes-libvchan-xen
 	x11-base/xorg-server
 	x11-libs/libX11
 	x11-libs/libXcomposite
