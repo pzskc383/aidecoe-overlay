@@ -17,7 +17,7 @@ IUSE=""
 
 S="${WORKDIR}/${MY_P}/qubes-rpc"
 
-CDEPEND="sys-libs/qubes-vm-qrexec-lib"
+CDEPEND="qubes-vm/qubes-vm-qrexec-lib"
 DEPEND="${CDEPEND}"
 RDEPEND="${CDEPEND}"
 

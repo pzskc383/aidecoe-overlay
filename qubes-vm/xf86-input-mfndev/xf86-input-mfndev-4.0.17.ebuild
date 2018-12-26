@@ -15,8 +15,8 @@ IUSE=""
 
 RDEPEND="x11-base/xorg-server"
 DEPEND="${RDEPEND}
-	sys-libs/qubes-libvchan-xen
-	sys-libs/qubes-vm-gui-common
+	qubes-vm/qubes-libvchan-xen
+	qubes-vm/qubes-vm-gui-common
 	virtual/pkgconfig"
 
 S="${WORKDIR}/${MY_P}/${PN}"

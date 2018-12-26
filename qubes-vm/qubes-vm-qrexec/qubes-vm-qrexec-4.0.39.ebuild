@@ -19,8 +19,8 @@ IUSE=""
 
 S="${WORKDIR}/${MY_P}/qrexec"
 
-CDEPEND="sys-libs/qubes-libvchan-xen
-	sys-libs/qubes-vm-qrexec-lib"
+CDEPEND="qubes-vm/qubes-libvchan-xen
+	qubes-vm/qubes-vm-qrexec-lib"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"
 RDEPEND="${CDEPEND}"

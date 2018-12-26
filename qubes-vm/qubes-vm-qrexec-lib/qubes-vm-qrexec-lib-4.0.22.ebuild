@@ -18,7 +18,7 @@ IUSE=""
 S="${WORKDIR}/${MY_P}/qrexec-lib"
 
 CDEPEND=">=app-emulation/xen-tools-4.8
-        sys-libs/qubes-libvchan-xen"
+        qubes-vm/qubes-libvchan-xen"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"
 RDEPEND="${CDEPEND}"
