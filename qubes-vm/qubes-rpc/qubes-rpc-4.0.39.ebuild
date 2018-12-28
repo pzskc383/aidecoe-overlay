@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-S="${WORKDIR}/${MY_P}/qubes-rpc"
+S="${WORKDIR}/${MY_P}/${PN}"
 
 CDEPEND="qubes-vm/qubes-vm-qrexec-lib"
 DEPEND="${CDEPEND}"
