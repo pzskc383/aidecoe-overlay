@@ -36,7 +36,7 @@ src_install() {
 
 	insinto "${qubeslibdir}"
 	doins qvm-copy-to-vm.gnome
-	doins misc/uca_qubes.xml
+	doins ../misc/uca_qubes.xml
 
 	dosym qvm-copy-to-vm.gnome "${qubeslibdir}"/qvm-move-to-vm.gnome
 	dosym qvm-copy-to-vm.gnome "${qubeslibdir}"/qvm-copy-to-vm.kde
@@ -96,7 +96,7 @@ src_install() {
 	done
 
 	insinto /etc
-	doins misc/qubes-suspend-module-blacklist
+	doins ../misc/qubes-suspend-module-blacklist
 
 	insinto /etc/qubes/suspend-pre.d
 	newins suspend-pre.README README
@@ -110,12 +110,12 @@ src_install() {
 	local postinstalldir=/etc/qubes/post-install.d
 
 	insinto "${postinstalldir}"
-	doins post-install.d/README
+	doins ../post-install.d/README
 	exeinto "${postinstalldir}"
-	doexe post-install.d/*.sh
+	doexe ../post-install.d/*.sh
 
 	insinto /etc/xdg/xfce4/xfconf/xfce-perchannel-xml
-	doins misc/thunar.xml
+	doins ../misc/thunar.xml
 
 	insinto /usr/share/nautilus-python/extensions
 	doins *_nautilus.py
