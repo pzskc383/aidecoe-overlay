@@ -41,6 +41,7 @@ RDEPEND="${CDEPEND}
 	sys-auth/polkit
 	qubes-vm/qubes-db-vm[python,${PYTHON_USEDEP}]
 	qubes-vm/qubes-libvchan-xen
+	qubes-vm/qubes-rpc
 	x11-misc/xdg-utils
 	x11-terms/xterm"
 
