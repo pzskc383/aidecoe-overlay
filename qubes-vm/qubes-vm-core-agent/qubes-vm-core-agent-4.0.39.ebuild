@@ -48,6 +48,7 @@ RDEPEND="${CDEPEND}
 NETWORK_SERVICES=( vm-systemd/qubes-firewall.service
 	vm-systemd/qubes-iptables.service
 	vm-systemd/qubes-updates-proxy.service )
+OTHER_PACKAGE_SERVICES=( vm-systemd/qubes-qrexec-agent.service )
 
 sudoers_newins() (
 	insopts -m 0440
@@ -59,7 +60,7 @@ systemd_dopreset() (
 	local unitdir="$(systemd_get_systemunitdir)"
 	local presetdir="${unitdir%/}-preset"
 	insopts -m 0644
-	insinto "$presetdir"
+	insinto "${presetdir}"
 	doins "${@}"
 )
 
@@ -101,9 +102,11 @@ src_install() {
 	systemd_dounit vm-systemd/qubes-*.timer
 
 	local service
+	local ignore_services=" ${NETWORK_SERVICES[@]}"
+	ignore_services+=" ${OTHER_PACKAGE_SERVICES[@]} "
 	for  service in vm-systemd/qubes-*.service; do
-		if ! [[ " ${NETWORK_SERVICES[@]} " = *" $service "* ]]; then
-			systemd_dounit "$service"
+		if ! [[ ${ignore_services} = *" ${service} "* ]]; then
+			systemd_dounit "${service}"
 		fi
 	done
 
