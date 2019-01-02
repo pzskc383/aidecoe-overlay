@@ -5,7 +5,7 @@ EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit distutils-r1 desktop udev
+inherit desktop distutils-r1 systemd udev
 
 MY_PN="qubes-core-agent-linux"
 MY_P="${MY_PN}-${PV}"
@@ -45,10 +45,22 @@ RDEPEND="${CDEPEND}
 	x11-misc/xdg-utils
 	x11-terms/xterm"
 
+NETWORK_SERVICES=( vm-systemd/qubes-firewall.service
+	vm-systemd/qubes-iptables.service
+	vm-systemd/qubes-updates-proxy.service )
+
 sudoers_newins() (
 	insopts -m 0440
 	insinto /etc/sudoers.d
 	newins "${@}"
+)
+
+systemd_dopreset() (
+	local unitdir="$(systemd_get_systemunitdir)"
+	local presetdir="${unitdir%/}-preset"
+	insopts -m 0644
+	insinto "$presetdir"
+	doins "${@}"
 )
 
 src_compile() {
@@ -79,6 +91,21 @@ src_install() {
 	doexe misc/close-window
 	doexe misc/upgrades-installed-check
 	doexe misc/upgrades-status-notify
+
+	exeinto "${qubeslibdir}/init"
+	doexe init/*.sh
+	doexe vm-systemd/*.sh
+	insinto "${qubeslibdir}/init"
+	doins init/functions
+	systemd_dopreset vm-systemd/75-qubes-vm.preset
+	systemd_dounit vm-systemd/qubes-*.timer
+
+	local service
+	for  service in vm-systemd/qubes-*.service; do
+		if ! [[ " ${NETWORK_SERVICES[@]} " = *" $service "* ]]; then
+			systemd_dounit "$service"
+		fi
+	done
 
 	insinto /etc/polkit-1/rules.d
 	newins misc/polkit-1-qubes-allow-all.rules 00-qubes-allow-all.rules
