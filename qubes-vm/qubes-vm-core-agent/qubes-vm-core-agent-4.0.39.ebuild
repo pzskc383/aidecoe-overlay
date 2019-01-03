@@ -105,8 +105,7 @@ src_install() {
 	local ignore_services=" ${NETWORK_SERVICES[@]}"
 	ignore_services+=" ${OTHER_PACKAGE_SERVICES[@]} "
 	for  service in vm-systemd/qubes-*.service; do
-		[[ -f ${service} ]] || continue
-		if ! [[ ${ignore_services} = *" ${service##*/} "* ]]; then
+		if ! [[ ${ignore_services} = *" ${service} "* ]]; then
 			systemd_dounit "${service}"
 		fi
 	done
