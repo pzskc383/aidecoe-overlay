@@ -6,7 +6,7 @@ EAPI=7
 DISTUTILS_OPTIONAL=1
 PYTHON_COMPAT=( python{2_7,3_5,3_6} )
 
-inherit distutils-r1
+inherit distutils-r1 systemd
 
 MY_PN=qubes-core-qubesdb
 MY_P=${MY_PN}-${PV}
@@ -59,4 +59,5 @@ src_install() {
 	default
 
 	bindings python distutils-r1_src_install
+	systemd_dounit systemd/qubes-db.service
 }
