@@ -57,7 +57,7 @@ src_compile() {
 
 src_install() {
 	default
-	systemd_dounit qubes-db.service
+	systemd_dounit daemon/qubes-db.service
 
 	bindings python distutils-r1_src_install
 }
