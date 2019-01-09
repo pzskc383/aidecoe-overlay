@@ -38,6 +38,7 @@ RDEPEND="${CDEPEND}
 	gnome-extra/zenity
 	media-gfx/imagemagick
 	sys-auth/polkit
+	sys-block/parted
 	qubes-vm/qubes-db-vm[python,${PYTHON_USEDEP}]
 	qubes-vm/qubes-libvchan-xen
 	qubes-vm/qubes-rpc
