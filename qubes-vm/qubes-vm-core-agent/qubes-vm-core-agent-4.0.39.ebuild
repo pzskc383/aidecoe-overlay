@@ -146,6 +146,8 @@ src_install() {
 
 	insinto /usr/lib/qubes-bind-dirs.d
 	doins misc/30_cron.conf
+
+	keepdir /rw
 }
 
 pkg_postint() {
