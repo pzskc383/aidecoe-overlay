@@ -149,6 +149,7 @@ src_install() {
 	doins misc/30_cron.conf
 
 	keepdir /rw
+	keepdir /var/lib/qubes
 }
 
 pkg_postint() {
