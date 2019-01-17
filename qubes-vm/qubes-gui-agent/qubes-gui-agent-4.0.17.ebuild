@@ -34,6 +34,15 @@ DEPEND="${CDEPEND}
 RDEPEND="${CDEPEND}
 	dev-python/xcffib[${PYTHON_USEDEP}]"
 
+make_session_wrapper() {
+	local session_exec_path="${1}"
+	local session_name="${2:-${PN}}"
+	printf "#!${EPREFIX}/bin/sh\nexec '${EPREFIX}${session_exec_path}'\n" \
+		>"${T}/${session_name}" || die
+	exeinto /etc/X11/Sessions
+	doexe "${T}/${session_name}"
+}
+
 src_compile() {
 	BACKEND_VMM=xen default
 }
@@ -44,16 +53,17 @@ src_install() {
 	dobin ../appvm-scripts/usrbin/qubes-run-xorg
 	dobin ../appvm-scripts/usrbin/qubes-session
 	dobin ../appvm-scripts/usrbin/qubes-set-monitor-layout
+	make_session_wrapper /usr/bin/qubes-session Qubes
 
 	insinto /etc/X11
 	doins ../appvm-scripts/etc/X11/Xwrapper.config  # rh
 	doins ../appvm-scripts/etc/X11/xorg-qubes.conf.template
 
+	# TODO: Install only to one of Xsession.d or xinitrc.d
 	insinto /etc/X11/Xsession.d
 	doins ../appvm-scripts/etc/X11/Xsession.d/20qt-gnome-desktop-session-id
 	doins ../appvm-scripts/etc/X11/Xsession.d/20qt-x11-no-mitshm
 	doins ../appvm-scripts/etc/X11/Xsession.d/25xdg-qubes-settings
-
 	insinto /etc/X11/xinit/xinitrc.d
 	doins ../appvm-scripts/etc/X11/xinit/xinitrc.d/qubes-keymap.sh  # rh
 	doins ../appvm-scripts/etc/X11/xinit/xinitrc.d/20qt-gnome-desktop-session-id.sh  # rh
