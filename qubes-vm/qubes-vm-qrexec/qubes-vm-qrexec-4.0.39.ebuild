@@ -25,6 +25,8 @@ DEPEND="${CDEPEND}
 	virtual/pkgconfig"
 RDEPEND="${CDEPEND}"
 
+PATCHES=( ${FILESDIR}/0001-Don-t-include-postlogin-in-pam-file.patch )
+
 pkg_setup() {
 	enewgroup qubes 98
 }
