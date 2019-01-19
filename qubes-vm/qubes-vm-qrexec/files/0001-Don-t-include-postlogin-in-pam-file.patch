@@ -5,13 +5,13 @@ Date: Sat, 19 Jan 2019 12:14:17 +0000
 Subject: [PATCH] Don't include postlogin in pam file
 
 ---
- qrexec/qrexec.pam | 2 --
+ qrexec.pam | 2 --
  1 file changed, 2 deletions(-)
 
-diff --git a/qrexec/qrexec.pam b/qrexec/qrexec.pam
+diff --git a/qrexec.pam b/qrexec.pam
 index c6896bc..d38c9a1 100644
---- a/qrexec/qrexec.pam
-+++ b/qrexec/qrexec.pam
+--- a/qrexec.pam
++++ b/qrexec.pam
 @@ -1,9 +1,7 @@
  #%PAM-1.0
  auth		sufficient	pam_rootok.so
