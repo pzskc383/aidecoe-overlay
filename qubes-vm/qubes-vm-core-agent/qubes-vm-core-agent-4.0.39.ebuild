@@ -17,7 +17,7 @@ SRC_URI="https://github.com/QubesOS/${MY_PN}/archive/v${PV}.tar.gz -> ${MY_P}.ta
 LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
+IUSE="+network"
 
 S="${WORKDIR}/${MY_P}"
 
@@ -128,10 +128,6 @@ src_install() {
 	insinto /usr/share/qubes
 	doins misc/qubes-master-key.asc
 
-	udev_newrules network/udev-qubes-network.rules 99-qubes-network.rules
-	exeinto "${qubeslibdir}"
-	doexe network/update-proxy-configs
-
 	dobin misc/qubes-session-autostart
 	dobin misc/qvm-features-request
 	dobin misc/qubes-run-terminal
@@ -150,6 +146,15 @@ src_install() {
 
 	keepdir /rw
 	keepdir /var/lib/qubes
+
+	if use network; then
+		systemd_dounit vm-systemd/qubes-updates-proxy-forwarder.socket
+		systemd_dounit vm-systemd/qubes-updates-proxy-forwarder@.service
+		udev_newrules network/udev-qubes-network.rules 99-qubes-network.rules
+
+		exeinto "${qubeslibdir}"
+		doexe network/setup-ip
+	fi
 }
 
 pkg_postint() {
