@@ -26,7 +26,7 @@ CDEPEND="app-emulation/xen-tools
 	virtual/pam"
 DEPEND="${CDEPEND}
 	dev-python/setuptools
-	sys-apps/systemd
+	sys-apps/systemd[-resolvconf]
 	virtual/pkgconfig"
 RDEPEND="${CDEPEND}
 	dev-python/python-daemon[${PYTHON_USEDEP}]
