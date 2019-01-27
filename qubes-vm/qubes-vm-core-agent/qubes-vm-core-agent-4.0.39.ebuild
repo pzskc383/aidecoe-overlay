@@ -65,6 +65,18 @@ systemd_dopreset() (
 	doins "${@}"
 )
 
+src_prepare() {
+	default
+
+	sed -e 's:/sbin/ifconfig:ifconfig:g' \
+		-e 's:/sbin/route:route:g' \
+		-e 's:/sbin/ethtool:ethtool:g' \
+		-e 's:/sbin/ip:ip:g' \
+		-e 's:/bin/grep:grep:g' \
+		-e 's:/usr/sbin/qubes-firewall:/usr/bin/qubes-firewall:g' \
+		-i network/* vm-systemd/*
+}
+
 src_compile() {
 	distutils-r1_src_compile
 	emake -C misc xenstore-watch close-window
