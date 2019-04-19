@@ -37,6 +37,7 @@ RDEPEND="${CDEPEND}
 	gnome-base/librsvg[tools]
 	gnome-extra/zenity
 	media-gfx/imagemagick
+	sys-apps/ethtool
 	sys-auth/polkit
 	sys-block/parted
 	qubes-vm/qubes-db-vm[python,${PYTHON_USEDEP}]
