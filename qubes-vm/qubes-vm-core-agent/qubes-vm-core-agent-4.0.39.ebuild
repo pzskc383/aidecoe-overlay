@@ -47,10 +47,32 @@ RDEPEND="${CDEPEND}
 	x11-misc/xdg-utils
 	x11-terms/xterm"
 
-NETWORK_SERVICES=( vm-systemd/qubes-firewall.service
-	vm-systemd/qubes-iptables.service
-	vm-systemd/qubes-updates-proxy.service )
-OTHER_PACKAGE_SERVICES=( vm-systemd/qubes-qrexec-agent.service )
+SYSTEMD_SERVICES_COMMON=(
+	vm-systemd/qubes-early-vm-config.service
+	vm-systemd/qubes-misc-post.service
+	vm-systemd/qubes-mount-dirs.service
+	vm-systemd/qubes-network.service
+	vm-systemd/qubes-rootfs-resize.service
+	vm-systemd/qubes-sync-time.service
+	vm-systemd/qubes-sysinit.service
+	vm-systemd/qubes-update-check.service
+	vm-systemd/qubes-updates-proxy-forwarder@.service
+)
+SYSTEMD_SERVICES_NETWORK=(
+	vm-systemd/qubes-updates-proxy-forwarder.socket
+	vm-systemd/qubes-updates-proxy-forwarder@.service
+)
+SYSTEMD_TIMERS_COMMON=(
+	vm-systemd/qubes-sync-time.timer
+	vm-systemd/qubes-update-check.timer
+)
+SYSTEMD_UNITS_COMMON=(
+	"${SYSTEMD_SERVICES_COMMON[@]}"
+	"${SYSTEMD_TIMERS_COMMON[@]}"
+)
+SYSTEMD_UNITS_NETWORK=(
+	"${SYSTEMD_SERVICES_NETWORK[@]}"
+)
 
 sudoers_newins() (
 	insopts -m 0440
@@ -65,6 +87,21 @@ systemd_dopreset() (
 	insinto "${presetdir}"
 	doins "${@}"
 )
+
+enable_systemd_units() {
+	local unit
+	for unit in "${@}"; do
+		systemctl preset "${unit##*/}"
+	done
+}
+
+install_systemd_units() {
+	local unit
+	for unit in "${@}"; do
+		systemd_dounit "${unit}"
+	done
+
+}
 
 src_prepare() {
 	default
@@ -113,16 +150,7 @@ src_install() {
 	insinto "${qubeslibdir}/init"
 	doins init/functions
 	systemd_dopreset vm-systemd/75-qubes-vm.preset
-	systemd_dounit vm-systemd/qubes-*.timer
-
-	local service
-	local ignore_services=" ${NETWORK_SERVICES[@]}"
-	ignore_services+=" ${OTHER_PACKAGE_SERVICES[@]} "
-	for  service in vm-systemd/qubes-*.service; do
-		if ! [[ ${ignore_services} = *" ${service} "* ]]; then
-			systemd_dounit "${service}"
-		fi
-	done
+	install_systemd_units "${SYSTEMD_UNITS_COMMON[@]}"
 
 	insinto /etc/polkit-1/rules.d
 	newins misc/polkit-1-qubes-allow-all.rules 00-qubes-allow-all.rules
@@ -161,8 +189,7 @@ src_install() {
 	keepdir /var/lib/qubes
 
 	if use network; then
-		systemd_dounit vm-systemd/qubes-updates-proxy-forwarder.socket
-		systemd_dounit vm-systemd/qubes-updates-proxy-forwarder@.service
+		install_systemd_units "${SYSTEMD_UNITS_NETWORK[@]}"
 		udev_newrules network/udev-qubes-network.rules 99-qubes-network.rules
 
 		exeinto "${qubeslibdir}"
@@ -172,4 +199,6 @@ src_install() {
 
 pkg_postint() {
 	udev_reload
+	enable_systemd_units "${SYSTEMD_UNITS_COMMON[@]}"
+	use network && enable_systemd_units "${SYSTEMD_UNITS_NETWORK[@]}"
 }
