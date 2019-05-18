@@ -24,8 +24,31 @@ DEPEND="${CDEPEND}
 	virtual/pkgconfig"
 RDEPEND="${CDEPEND}"
 
+SYSTEMD_UNITS=(
+	qubes-meminfo-writer.service
+	qubes-meminfo-writer-dom0.service
+)
+
+enable_systemd_units() {
+	local unit
+	for unit in "${@}"; do
+		systemctl preset "${unit##*/}"
+	done
+}
+
+install_systemd_units() {
+	local unit
+	for unit in "${@}"; do
+		systemd_dounit "${unit}"
+	done
+
+}
+
 src_install() {
 	dosbin meminfo-writer
-	systemd_dounit qubes-meminfo-writer.service
-	systemd_dounit qubes-meminfo-writer-dom0.service
+	install_systemd_units "${SYSTEMD_UNITS[@]}"
+}
+
+pkg_postint() {
+	enable_systemd_units "${SYSTEMD_UNITS[@]}"
 }
