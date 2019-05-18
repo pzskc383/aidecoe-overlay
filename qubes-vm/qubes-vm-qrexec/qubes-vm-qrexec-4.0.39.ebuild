@@ -27,6 +27,25 @@ RDEPEND="${CDEPEND}"
 
 PATCHES=( ${FILESDIR}/0001-Don-t-include-postlogin-in-pam-file.patch )
 
+SYSTEMD_UNITS=(
+	../vm-systemd/qubes-qrexec-agent.service
+)
+
+enable_systemd_units() {
+	local unit
+	for unit in "${@}"; do
+		systemctl preset "${unit##*/}"
+	done
+}
+
+install_systemd_units() {
+	local unit
+	for unit in "${@}"; do
+		systemd_dounit "${unit}"
+	done
+
+}
+
 pkg_setup() {
 	enewgroup qubes 98
 }
@@ -37,10 +56,11 @@ src_compile() {
 
 src_install() {
 	default
-	systemd_dounit ../vm-systemd/qubes-qrexec-agent.service
 	dotmpfiles "${FILESDIR}"/qubes-vm-qrexec.conf
+	install_systemd_units "${SYSTEMD_UNITS[@]}"
 }
 
 pkg_postinst() {
 	tmpfiles_process qubes-vm-qrexec.conf
+	enable_systemd_units "${SYSTEMD_UNITS[@]}"
 }
