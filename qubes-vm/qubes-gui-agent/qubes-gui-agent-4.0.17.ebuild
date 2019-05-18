@@ -34,6 +34,25 @@ DEPEND="${CDEPEND}
 RDEPEND="${CDEPEND}
 	dev-python/xcffib[${PYTHON_USEDEP}]"
 
+SYSTEMD_UNITS=(
+	../appvm-scripts/qubes-gui-agent.service
+)
+
+enable_systemd_units() {
+	local unit
+	for unit in "${@}"; do
+		systemctl preset "${unit##*/}"
+	done
+}
+
+install_systemd_units() {
+	local unit
+	for unit in "${@}"; do
+		systemd_dounit "${unit}"
+	done
+
+}
+
 make_session_wrapper() {
 	local session_exec_path="${1}"
 	local session_name="${2:-${PN}}"
@@ -100,7 +119,7 @@ src_install() {
 	doins ../appvm-scripts/qubes-gui-vm.gschema.override
 
 	dotmpfiles ../appvm-scripts/etc/tmpfiles.d/qubes-session.conf
-	systemd_dounit ../appvm-scripts/qubes-gui-agent.service
+	install_systemd_units "${SYSTEMD_UNITS[@]}"
 
 	keepdir /var/log/qubes
 
@@ -110,4 +129,5 @@ src_install() {
 pkg_postinst() {
 	tmpfiles_process /usr/lib/tmpfiles.d/qubes-session.conf
 	/usr/bin/glib-compile-schemas /usr/share/glib-2.0/schemas
+	enable_systemd_units "${SYSTEMD_UNITS[@]}"
 }
