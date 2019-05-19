@@ -14,7 +14,7 @@ IUSE=""
 
 RDEPEND="qubes-vm/xf86-input-mfndev
 	qubes-vm/xf86-video-dummy-qubes
-	qubes-vm/qubes-vm-qmemman
+	qubes-vm/qmemman
 	qubes-vm/qubes-core-agent
 	qubes-vm/qubes-vm-udev
 	qubes-vm/qubes-gui-agent"
