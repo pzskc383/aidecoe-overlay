@@ -53,8 +53,8 @@ src_install() {
 
 	dobin start-pulseaudio-with-vchan
 
-	into /usr/$(get_libdir)/pulse-${pa_ver}
-	dolib.so module-vchan-sink.so
+	exeinto /usr/$(get_libdir)/pulse-${pa_ver}/modules
+	doexe module-vchan-sink.so
 
 	insinto /etc/pulse
 	doins qubes-default.pa
