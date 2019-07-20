@@ -195,6 +195,8 @@ src_install() {
 		exeinto "${qubeslibdir}"
 		doexe network/setup-ip
 	fi
+
+	dobin "${FILESDIR}"/with-qubes-proxy.sh
 }
 
 pkg_postint() {
