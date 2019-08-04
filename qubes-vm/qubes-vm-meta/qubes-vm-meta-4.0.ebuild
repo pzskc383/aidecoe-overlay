@@ -12,8 +12,8 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-RDEPEND="qubes-vm/xf86-input-mfndev
-	qubes-vm/xf86-video-dummy-qubes
+RDEPEND="x11-drivers/xf86-input-mfndev
+	x11-drivers/xf86-video-dummy-qubes
 	qubes-vm/qmemman
 	qubes-vm/core-agent
 	qubes-vm/udev-files
