@@ -6,7 +6,7 @@ EAPI=7
 MY_PN="qubes-app-linux-split-gpg"
 MY_P="${MY_PN}-${PV}"
 
-DESCRIPTION="GPG separation"
+DESCRIPTION="The Qubes service for secure GPG separation"
 HOMEPAGE="https://www.qubes-os.org/"
 SRC_URI="https://github.com/QubesOS/${MY_PN}/archive/v${PV}.tar.gz -> ${MY_P}.tar.gz"
 

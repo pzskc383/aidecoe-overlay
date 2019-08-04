@@ -31,13 +31,6 @@ SYSTEMD_UNITS=(
 	../vm-systemd/qubes-qrexec-agent.service
 )
 
-enable_systemd_units() {
-	local unit
-	for unit in "${@}"; do
-		systemctl preset "${unit##*/}"
-	done
-}
-
 install_systemd_units() {
 	local unit
 	for unit in "${@}"; do
@@ -62,5 +55,4 @@ src_install() {
 
 pkg_postinst() {
 	tmpfiles_process qubes-vm-qrexec.conf
-	enable_systemd_units "${SYSTEMD_UNITS[@]}"
 }

@@ -88,13 +88,6 @@ systemd_dopreset() (
 	doins "${@}"
 )
 
-enable_systemd_units() {
-	local unit
-	for unit in "${@}"; do
-		systemctl preset "${unit##*/}"
-	done
-}
-
 install_systemd_units() {
 	local unit
 	for unit in "${@}"; do
@@ -121,7 +114,7 @@ src_compile() {
 }
 
 src_install() {
-	#$(MAKE) -C autostart-dropins install
+	emake -C autostart-dropins install
 
 	distutils-r1_src_install
 
@@ -201,6 +194,4 @@ src_install() {
 
 pkg_postint() {
 	udev_reload
-	enable_systemd_units "${SYSTEMD_UNITS_COMMON[@]}"
-	use network && enable_systemd_units "${SYSTEMD_UNITS_NETWORK[@]}"
 }

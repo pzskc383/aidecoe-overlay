@@ -38,13 +38,6 @@ SYSTEMD_UNITS=(
 	../appvm-scripts/qubes-gui-agent.service
 )
 
-enable_systemd_units() {
-	local unit
-	for unit in "${@}"; do
-		systemctl preset "${unit##*/}"
-	done
-}
-
 install_systemd_units() {
 	local unit
 	for unit in "${@}"; do
@@ -129,5 +122,4 @@ src_install() {
 pkg_postinst() {
 	tmpfiles_process /usr/lib/tmpfiles.d/qubes-session.conf
 	/usr/bin/glib-compile-schemas /usr/share/glib-2.0/schemas
-	enable_systemd_units "${SYSTEMD_UNITS[@]}"
 }

@@ -29,13 +29,6 @@ SYSTEMD_UNITS=(
 	qubes-meminfo-writer-dom0.service
 )
 
-enable_systemd_units() {
-	local unit
-	for unit in "${@}"; do
-		systemctl preset "${unit##*/}"
-	done
-}
-
 install_systemd_units() {
 	local unit
 	for unit in "${@}"; do
@@ -47,8 +40,4 @@ install_systemd_units() {
 src_install() {
 	dosbin meminfo-writer
 	install_systemd_units "${SYSTEMD_UNITS[@]}"
-}
-
-pkg_postint() {
-	enable_systemd_units "${SYSTEMD_UNITS[@]}"
 }

@@ -33,13 +33,6 @@ SYSTEMD_UNITS=(
 	daemon/qubes-db.service
 )
 
-enable_systemd_units() {
-	local unit
-	for unit in "${@}"; do
-		systemctl preset "${unit##*/}"
-	done
-}
-
 install_systemd_units() {
 	local unit
 	for unit in "${@}"; do
@@ -79,8 +72,4 @@ src_install() {
 	install_systemd_units "${SYSTEMD_UNITS[@]}"
 
 	bindings python distutils-r1_src_install
-}
-
-pkg_postinst() {
-	enable_systemd_units "${SYSTEMD_UNITS[@]}"
 }
