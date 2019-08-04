@@ -6,7 +6,7 @@ EAPI=7
 MY_PN="qubes-core-agent-linux"
 MY_P="${MY_PN}-${PV}"
 
-DESCRIPTION="Qubes VM qrexec"
+DESCRIPTION="Qubes VM RPC"
 HOMEPAGE="https://www.qubes-os.org/"
 SRC_URI="https://github.com/QubesOS/${MY_PN}/archive/v${PV}.tar.gz -> ${MY_P}.tar.gz"
 
