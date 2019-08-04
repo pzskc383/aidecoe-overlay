@@ -19,7 +19,7 @@ S="${WORKDIR}/${MY_P}/udev"
 
 DEPEND=""
 RDEPEND="sys-fs/lvm2
-	qubes-vm/qubes-db-vm
+	qubes-vm/db
 	virtual/libiconv
 	virtual/udev"
 
