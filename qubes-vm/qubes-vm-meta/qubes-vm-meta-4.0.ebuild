@@ -17,4 +17,4 @@ RDEPEND="qubes-vm/xf86-input-mfndev
 	qubes-vm/qmemman
 	qubes-vm/core-agent
 	qubes-vm/qubes-vm-udev
-	qubes-vm/qubes-gui-agent"
+	qubes-vm/gui-agent"
