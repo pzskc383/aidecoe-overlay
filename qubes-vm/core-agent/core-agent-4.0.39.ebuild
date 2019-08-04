@@ -41,7 +41,7 @@ RDEPEND="${CDEPEND}
 	sys-auth/polkit
 	sys-block/parted
 	qubes-vm/db[python,${PYTHON_USEDEP}]
-	qubes-vm/qubes-libvchan-xen
+	qubes-vm/libvchan-xen:=
 	qubes-vm/qubes-rpc
 	qubes-vm/qubes-vm-qrexec
 	x11-misc/xdg-utils

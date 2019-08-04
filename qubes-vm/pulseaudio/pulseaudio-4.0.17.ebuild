@@ -21,7 +21,7 @@ S="${WORKDIR}/${MY_P}/pulse"
 
 CDEPEND="media-sound/pulseaudio:=
 	dev-libs/dbus-glib:=
-	qubes-vm/qubes-libvchan-xen:=
+	qubes-vm/libvchan-xen:=
 	"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"

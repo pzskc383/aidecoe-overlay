@@ -24,7 +24,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 S="${WORKDIR}/${MY_P}"
 
 DEPEND="sys-apps/systemd
-	qubes-vm/qubes-libvchan-xen
+	qubes-vm/libvchan-xen:=
 	python? ( ${PYTHON_DEPS} )"
 RDEPEND="${DEPEND}"
 BDEPEND="virtual/pkgconfig"

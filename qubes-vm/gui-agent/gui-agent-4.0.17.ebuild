@@ -24,7 +24,7 @@ S="${WORKDIR}/${MY_P}/gui-agent"
 
 CDEPEND="gnome-extra/zenity
 	qubes-vm/db
-	qubes-vm/qubes-libvchan-xen
+	qubes-vm/libvchan-xen:=
 	x11-base/xorg-server
 	x11-libs/libX11
 	x11-libs/libXcomposite

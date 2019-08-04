@@ -18,15 +18,15 @@ IUSE=""
 S="${WORKDIR}/${MY_P}/qrexec-lib"
 
 CDEPEND=">=app-emulation/xen-tools-4.8
-        qubes-vm/qubes-libvchan-xen"
+	qubes-vm/libvchan-xen:="
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"
 RDEPEND="${CDEPEND}"
 
 src_compile() {
-        BACKEND_VMM=xen default
+	BACKEND_VMM=xen default
 }
 
 src_install() {
-        INCLUDEDIR="/usr/include" LIBDIR="/usr/$(get_libdir)" default
+	INCLUDEDIR="/usr/include" LIBDIR="/usr/$(get_libdir)" default
 }
